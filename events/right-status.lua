@@ -1,4 +1,5 @@
 local wezterm = require('wezterm')
+local colors = require('colors.custom')
 local nf = wezterm.nerdfonts
 local umath = require('utils.math')
 local M = {}
@@ -31,9 +32,9 @@ local charging_icons = {
 }
 
 M.colors = {
-   date_fg = '#fab387',
+   date_fg = "#9d7cd8",
    date_bg = '#181825',
-   battery_fg = '#f9e2af',
+   battery_fg = "#2ac3de",
    battery_bg = '#181825',
    separator_fg = '#74c7ec',
    separator_bg = '#181825',
@@ -62,7 +63,7 @@ M.push = function(text, icon, fg, bg, separate)
 end
 
 M.set_date = function()
-   local date = wezterm.strftime(' %a %H:%M')
+   local date = wezterm.strftime('%m/%d/%Y, %H:%M:%S')
    M.push(date, nf.fa_calendar, M.colors.date_fg, M.colors.date_bg, true)
 end
 
