@@ -50,7 +50,7 @@ M.cells = {} -- wezterm FormatItems (ref: https://wezfurlong.org/wezterm/config/
 M.push = function(text, icon, fg, bg, separate)
    table.insert(M.cells, { Foreground = { Color = fg } })
    table.insert(M.cells, { Background = { Color = bg } })
-   table.insert(M.cells, { Attribute = { Intensity = 'Bold' } })
+   table.insert(M.cells, { Attribute = { Intensity = 'Normal' } })
    table.insert(M.cells, { Text = icon .. ' ' .. text .. ' ' })
 
    if separate then
