@@ -7,6 +7,7 @@ wezterm.on("gui-startup", function()
   window:gui_window():toggle_fullscreen()
 end)
 
+
 require('utils.backdrops'):set_files():random()
 
 require('events.right-status').setup()

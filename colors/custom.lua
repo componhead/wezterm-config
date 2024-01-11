@@ -62,7 +62,7 @@ local mochaTokio = {
 
 local colorscheme = {
    foreground = mochaTokio.dark5Tokio,
-   background = mochaTokio.bgTokio,
+   background = mochaTokio.crustMocha,
    cursor_bg = mochaTokio.blue6Tokio,
    cursor_border = mochaTokio.rosewaterMocha,
    cursor_fg = mochaTokio.crustMocha,

@@ -7,91 +7,104 @@ local mod = {}
 
 if platform.is_mac then
    mod.SUPER = 'SUPER'
-   mod.SUPER_REV = 'SUPER|CTRL'
-elseif platform.is_win then
-   mod.SUPER = 'ALT' -- to not conflict with Windows key shortcuts
-   mod.SUPER_REV = 'ALT|CTRL'
+   mod.SHIFT = 'SHIFT'
+   -- elseif platform.is_win then
+   --    mod.SUPER = 'ALT' -- to not conflict with Windows key shortcuts
+   --    mod.SUPER = 'ALT|CTRL'
 end
 
 local keys = {
    -- misc/useful --
-   { key = 'F1',  mods = 'NONE',        action = 'ActivateCopyMode' },
-   { key = 'F2',  mods = 'NONE',        action = act.ActivateCommandPalette },
-   { key = 'F3',  mods = 'NONE',        action = act.ShowLauncher },
-   { key = 'F4',  mods = 'NONE',        action = act.ShowTabNavigator },
-   { key = 'F12', mods = 'NONE',        action = act.ShowDebugOverlay },
-   { key = 'f',   mods = mod.SUPER,     action = act.Search({ CaseInSensitiveString = '' }) },
+   { key = 'F1', mods = 'NONE',    action = 'ActivateCopyMode' },
+   { key = 'F2', mods = 'NONE',    action = act.ActivateCommandPalette },
+   { key = 'F2', mods = mod.SHIFT, action = act.ShowLauncher },
+   { key = 'F3', mods = 'NONE',    action = act.ShowLauncherArgs { flags = 'FUZZY' } },
+   -- Prompt for a name to use for a new workspace and switch to it.
+   {
+      key = 'F3',
+      mods = mod.SHIFT,
+      action = act.PromptInputLine {
+         description = wezterm.format {
+            { Attribute = { Intensity = 'Bold' } },
+            { Foreground = { AnsiColor = 'Fuchsia' } },
+            { Text = 'Enter name for new workspace' },
+         },
+         action = wezterm.action_callback(function(window, pane, line)
+            -- line will be `nil` if they hit escape without entering anything
+            -- An empty string if they just hit enter
+            -- Or the actual line of text they wrote
+            if line then
+               window:perform_action(
+                  act.SwitchToWorkspace {
+                     name = line,
+                  },
+                  pane
+               )
+            end
+         end),
+      },
+   },
+   { key = 'F4',  mods = 'NONE',    action = act.ShowTabNavigator },
+   { key = 'F4',  mods = mod.SHIFT, action = act.SpawnTab('DefaultDomain') },
+   { key = 'F5',  mods = 'NONE',    action = act.SplitHorizontal },
+   { key = 'F5',  mods = mod.SHIFT, action = act.SplitVertical },
+   { key = 'F6',  mods = 'NONE',    action = act.TogglePaneZoomState },
+   { key = 'F12', mods = 'NONE',    action = act.ShowDebugOverlay },
+   { key = 'f',   mods = mod.SUPER, action = act.Search({ CaseInSensitiveString = '' }) },
 
    -- copy/paste --
-   { key = 'c',   mods = 'CTRL|SHIFT',  action = act.CopyTo('Clipboard') },
-   { key = 'v',   mods = 'CTRL|SHIFT',  action = act.PasteFrom('Clipboard') },
+   { key = 'c',   mods = mod.SUPER, action = act.CopyTo('Clipboard') },
+   { key = 'v',   mods = mod.SUPER, action = act.PasteFrom('Clipboard') },
 
-   -- tabs --
-   -- tabs: spawn+close
-   { key = 't',   mods = mod.SUPER,     action = act.SpawnTab('DefaultDomain') },
-   { key = 't',   mods = mod.SUPER_REV, action = act.SpawnTab({ DomainName = 'WSL:Ubuntu' }) },
-   { key = 'w',   mods = mod.SUPER_REV, action = act.CloseCurrentTab({ confirm = false }) },
+   { key = 'w',   mods = mod.SUPER, action = act.CloseCurrentTab({ confirm = false }) },
 
    -- tabs: navigation
-   { key = '[',   mods = mod.SUPER,     action = act.ActivateTabRelative(-1) },
-   { key = ']',   mods = mod.SUPER,     action = act.ActivateTabRelative(1) },
-   { key = '[',   mods = mod.SUPER_REV, action = act.MoveTabRelative(-1) },
-   { key = ']',   mods = mod.SUPER_REV, action = act.MoveTabRelative(1) },
+   { key = '[',   mods = mod.SUPER, action = act.ActivateTabRelative(-1) },
+   { key = ']',   mods = mod.SUPER, action = act.ActivateTabRelative(1) },
+   { key = '[',   mods = mod.SUPER, action = act.MoveTabRelative(-1) },
+   { key = ']',   mods = mod.SUPER, action = act.MoveTabRelative(1) },
 
    -- window --
    -- spawn windows
-   { key = 'n',   mods = mod.SUPER,     action = act.SpawnWindow },
+   { key = 'n',   mods = mod.SUPER, action = act.SpawnWindow },
 
    -- background controls --
    {
       key = [[/]],
-      mods = mod.SUPER_REV,
+      mods = mod.SUPER,
       action = wezterm.action_callback(function(window, _pane)
          backdrops:random(window)
       end),
    },
    {
       key = [[,]],
-      mods = mod.SUPER_REV,
+      mods = mod.SUPER,
       action = wezterm.action_callback(function(window, _pane)
          backdrops:cycle_back(window)
       end),
    },
    {
       key = [[.]],
-      mods = mod.SUPER_REV,
+      mods = mod.SUPER,
       action = wezterm.action_callback(function(window, _pane)
          backdrops:cycle_forward(window)
       end),
    },
 
-   -- panes --
-   -- panes: split panes
-   {
-      key = [[\]],
-      mods = mod.SUPER,
-      action = act.SplitVertical({ domain = 'CurrentPaneDomain' }),
-   },
-   {
-      key = [[\]],
-      mods = mod.SUPER_REV,
-      action = act.SplitHorizontal({ domain = 'CurrentPaneDomain' }),
-   },
-
    -- panes: zoom+close pane
-   { key = 'z', mods = mod.SUPER_REV, action = act.TogglePaneZoomState },
-   { key = 'w', mods = mod.SUPER,     action = act.CloseCurrentPane({ confirm = false }) },
+   { key = 'z', mods = mod.SUPER, action = act.TogglePaneZoomState },
+   { key = 'w', mods = mod.SUPER, action = act.CloseCurrentPane({ confirm = false }) },
 
    -- panes: navigation
-   { key = 'k', mods = mod.SUPER_REV, action = act.ActivatePaneDirection('Up') },
-   { key = 'j', mods = mod.SUPER_REV, action = act.ActivatePaneDirection('Down') },
-   { key = 'h', mods = mod.SUPER_REV, action = act.ActivatePaneDirection('Left') },
-   { key = 'l', mods = mod.SUPER_REV, action = act.ActivatePaneDirection('Right') },
+   { key = 'k', mods = mod.SUPER, action = act.ActivatePaneDirection('Up') },
+   { key = 'j', mods = mod.SUPER, action = act.ActivatePaneDirection('Down') },
+   { key = 'h', mods = mod.SUPER, action = act.ActivatePaneDirection('Left') },
+   { key = 'l', mods = mod.SUPER, action = act.ActivatePaneDirection('Right') },
 
    -- key-tables --
    -- resizes fonts
    {
-      key = 'f',
+      key = 'F',
       mods = 'LEADER',
       action = act.ActivateKeyTable({
          name = 'resize_font',
@@ -101,7 +114,7 @@ local keys = {
    },
    -- resize panes
    {
-      key = 'p',
+      key = 'P',
       mods = 'LEADER',
       action = act.ActivateKeyTable({
          name = 'resize_pane',
@@ -137,6 +150,11 @@ local mouse_bindings = {
       action = act.OpenLinkAtMouseCursor,
    },
 }
+
+
+wezterm.on('update-right-status', function(window, pane)
+   window:set_right_status(window:active_workspace())
+end)
 
 return {
    disable_default_key_bindings = true,
