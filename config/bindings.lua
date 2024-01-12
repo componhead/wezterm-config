@@ -18,7 +18,7 @@ local keys = {
    { key = 'F1', mods = 'NONE',    action = 'ActivateCopyMode' },
    { key = 'F2', mods = 'NONE',    action = act.ActivateCommandPalette },
    { key = 'F2', mods = mod.SHIFT, action = act.ShowLauncher },
-   { key = 'F3', mods = 'NONE',    action = act.ShowLauncherArgs { flags = 'FUZZY' } },
+   { key = 'F3', mods = 'NONE',    action = act.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' } },
    -- Prompt for a name to use for a new workspace and switch to it.
    {
       key = 'F3',
@@ -55,7 +55,6 @@ local keys = {
    -- copy/paste --
    { key = 'c',   mods = mod.SUPER, action = act.CopyTo('Clipboard') },
    { key = 'v',   mods = mod.SUPER, action = act.PasteFrom('Clipboard') },
-
    { key = 'w',   mods = mod.SUPER, action = act.CloseCurrentTab({ confirm = false }) },
 
    -- tabs: navigation
