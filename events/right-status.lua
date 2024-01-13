@@ -38,6 +38,8 @@ M.colors = {
    battery_bg = '#181825',
    separator_fg = '#74c7ec',
    separator_bg = '#181825',
+   current_workspace_fg = '#9ece6a',
+   current_workspace_bg = '#181825',
 }
 
 M.cells = {} -- wezterm FormatItems (ref: https://wezfurlong.org/wezterm/config/lua/wezterm/format.html)
@@ -64,7 +66,7 @@ end
 
 M.set_date = function()
    local date = wezterm.strftime('%m/%d/%Y, %H:%M:%S')
-   M.push(date, nf.fa_calendar, M.colors.date_fg, M.colors.date_bg, true)
+   M.push(date, nf.fa_calendar, M.colors.date_fg, M.colors.date_bg, false)
 end
 
 M.set_battery = function()
@@ -87,11 +89,17 @@ M.set_battery = function()
    M.push(charge, icon, M.colors.battery_fg, M.colors.battery_bg, false)
 end
 
+M.set_current_workspace = function(window, _)
+   M.push(window:active_workspace(), nf.cod_screen_full, M.colors.current_workspace_fg, M.colors.current_workspace_bg,
+      false)
+end
+
 M.setup = function()
    wezterm.on('update-right-status', function(window, _pane)
       M.cells = {}
       M.set_date()
       M.set_battery()
+      M.set_current_workspace(window, _pane)
 
       window:set_right_status(wezterm.format(M.cells))
    end)

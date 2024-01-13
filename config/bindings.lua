@@ -8,9 +8,12 @@ local mod = {}
 if platform.is_mac then
    mod.SUPER = 'SUPER'
    mod.SHIFT = 'SHIFT'
-   -- elseif platform.is_win then
-   --    mod.SUPER = 'ALT' -- to not conflict with Windows key shortcuts
-   --    mod.SUPER = 'ALT|CTRL'
+   mod.CTRL = 'CTRL'
+   mod.ALT = 'ALT'
+   mod.LEADER = 'LEADER'
+elseif platform.is_win then
+   mod.SUPER = 'ALT' -- to not conflict with Windows key shortcuts
+   mod.SUPER = 'ALT|CTRL'
 end
 
 local keys = {
@@ -89,7 +92,31 @@ local keys = {
          backdrops:cycle_forward(window)
       end),
    },
-
+   {
+      key = 'h',
+      mods = mod.LEADER,
+      action = wezterm.action.QuickSelectArgs {
+         label = 'select sha',
+         patterns = {
+            ' [0-9a-f]{7,40} ',
+         },
+      },
+   },
+   {
+      key = 'u',
+      mods = mod.LEADER,
+      action = wezterm.action.QuickSelectArgs {
+         label = 'open url',
+         patterns = {
+            'https?://\\S+',
+         },
+         action = wezterm.action_callback(function(window, pane)
+            local url = window:get_selection_text_for_pane(pane)
+            wezterm.log_info('opening: ' .. url)
+            wezterm.open_with(url)
+         end),
+      },
+   },
    -- panes: zoom+close pane
    { key = 'z', mods = mod.SUPER, action = act.TogglePaneZoomState },
    { key = 'w', mods = mod.SUPER, action = act.CloseCurrentPane({ confirm = false }) },
@@ -104,7 +131,7 @@ local keys = {
    -- resizes fonts
    {
       key = 'F',
-      mods = 'LEADER',
+      mods = mod.LEADER,
       action = act.ActivateKeyTable({
          name = 'resize_font',
          one_shot = false,
@@ -114,7 +141,7 @@ local keys = {
    -- resize panes
    {
       key = 'P',
-      mods = 'LEADER',
+      mods = mod.LEADER,
       action = act.ActivateKeyTable({
          name = 'resize_pane',
          one_shot = false,
@@ -149,11 +176,6 @@ local mouse_bindings = {
       action = act.OpenLinkAtMouseCursor,
    },
 }
-
-
-wezterm.on('update-right-status', function(window, pane)
-   window:set_right_status(window:active_workspace())
-end)
 
 return {
    disable_default_key_bindings = true,
