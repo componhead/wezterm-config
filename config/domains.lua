@@ -7,12 +7,12 @@ return {
 
    -- ref: https://wezfurlong.org/wezterm/config/lua/WslDomain.html
    wsl_domains = {
-      {
-         name = 'WSL:Ubuntu',
-         distribution = 'Ubuntu',
-         username = 'emiliano',
-         default_cwd = '/home/emiliano',
-         default_prog = { 'fish' },
-      },
+      -- {
+      --    name = 'WSL:Ubuntu',
+      --    distribution = 'Ubuntu',
+      --    username = 'emiliano',
+      --    default_cwd = '/home/emiliano',
+      --    default_prog = { 'fish' },
+      -- },
    },
 }

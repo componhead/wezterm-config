@@ -17,11 +17,6 @@ require('events.tab-title').setup()
 require('events.new-tab-button').setup()
 
 return cfg
-    :append({
-      set_environment_variables = {
-        OPENAI_API_KEY = ''
-      }
-    })
     :append(require('config.appearance'))
     :append(require('config.bindings'))
     :append(require('config.domains'))
