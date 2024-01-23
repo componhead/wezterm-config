@@ -21,10 +21,12 @@ local keys = {
    { key = 'F1', mods = 'NONE',    action = 'ActivateCopyMode' },
    { key = 'F2', mods = 'NONE',    action = act.ActivateCommandPalette },
    { key = 'F2', mods = mod.SHIFT, action = act.ShowLauncher },
-   { key = 'F3', mods = 'NONE',    action = act.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' } },
+   { key = 'F3', mods = 'NONE',    action = act.ShowTabNavigator },
+   { key = 'F3', mods = mod.SHIFT, action = act.SpawnTab('DefaultDomain') },
+   { key = 'F4', mods = 'NONE',    action = act.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' } },
    -- Prompt for a name to use for a new workspace and switch to it.
    {
-      key = 'F3',
+      key = 'F4',
       mods = mod.SHIFT,
       action = act.PromptInputLine {
          description = wezterm.format {
@@ -47,11 +49,8 @@ local keys = {
          end),
       },
    },
-   { key = 'F4',  mods = 'NONE',    action = act.ShowTabNavigator },
-   { key = 'F4',  mods = mod.SHIFT, action = act.SpawnTab('DefaultDomain') },
    { key = 'F5',  mods = 'NONE',    action = act.SplitHorizontal },
    { key = 'F5',  mods = mod.SHIFT, action = act.SplitVertical },
-   { key = 'F6',  mods = 'NONE',    action = act.TogglePaneZoomState },
    { key = 'F12', mods = 'NONE',    action = act.ShowDebugOverlay },
    { key = 'f',   mods = mod.SUPER, action = act.Search({ CaseInSensitiveString = '' }) },
 
@@ -63,8 +62,8 @@ local keys = {
    -- tabs: navigation
    { key = '[',   mods = mod.SUPER, action = act.ActivateTabRelative(-1) },
    { key = ']',   mods = mod.SUPER, action = act.ActivateTabRelative(1) },
-   { key = '[',   mods = mod.SUPER, action = act.MoveTabRelative(-1) },
-   { key = ']',   mods = mod.SUPER, action = act.MoveTabRelative(1) },
+   { key = '{',   mods = mod.SUPER, action = act.MoveTabRelative(-1) },
+   { key = '}',   mods = mod.SUPER, action = act.MoveTabRelative(1) },
 
    -- window --
    -- spawn windows

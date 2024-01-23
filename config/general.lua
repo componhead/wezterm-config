@@ -1,3 +1,5 @@
+local wezterm = require('wezterm')
+
 return {
    -- behaviours
    automatically_reload_config = true,
@@ -6,40 +8,13 @@ return {
 
    scrollback_lines = 5000,
 
-   hyperlink_rules = {
-      -- Matches: a URL in parens: (URL)
+   -- hyperlink rules
+   hyperlink_rules = table.insert(wezterm.default_hyperlink_rules(), {
       {
-         regex = '\\((\\w+://\\S+)\\)',
+         -- Matches: a filename
+         regex = ' ?(\\/?[\\w]*\\/[\\w]*)+\\s?',
          format = '$1',
          highlight = 1,
       },
-      -- Matches: a URL in brackets: [URL]
-      {
-         regex = '\\[(\\w+://\\S+)\\]',
-         format = '$1',
-         highlight = 1,
-      },
-      -- Matches: a URL in curly braces: {URL}
-      {
-         regex = '\\{(\\w+://\\S+)\\}',
-         format = '$1',
-         highlight = 1,
-      },
-      -- Matches: a URL in angle brackets: <URL>
-      {
-         regex = '<(\\w+://\\S+)>',
-         format = '$1',
-         highlight = 1,
-      },
-      -- Then handle URLs not wrapped in brackets
-      {
-         regex = '\\b\\w+://\\S+[)/a-zA-Z0-9-]+',
-         format = '$0',
-      },
-      -- implicit mailto link
-      {
-         regex = '\\b\\w+@[\\w-]+(\\.[\\w-]+)+\\b',
-         format = 'mailto:$0',
-      },
-   },
+   }),
 }

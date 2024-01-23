@@ -2,6 +2,7 @@ local wezterm = require('wezterm')
 local colors = require('colors.custom')
 
 return {
+   hide_mouse_cursor_when_typing = true,
    animation_fps = 60,
    max_fps = 60,
    front_end = 'WebGpu',
