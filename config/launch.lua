@@ -10,10 +10,6 @@ if platform.is_win then
    options.launch_menu = {
       { label = 'Command Prompt', args = { 'cmd' } },
       { label = 'Nushell',        args = { 'nu' } },
-      {
-         label = 'Git Bash',
-         args = { 'C:\\Users\\emiliano\\apps\\git\\current\\bin\\bash.exe' },
-      },
    }
 elseif platform.is_mac then
    options.default_prog = { '/usr/local/bin/fish' }
