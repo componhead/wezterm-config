@@ -11,6 +11,7 @@ if platform.is_mac then
    mod.CTRL = 'CTRL'
    mod.ALT = 'ALT'
    mod.LEADER = 'LEADER'
+   mod.CTRLSUPER = 'CTRL|SUPER'
 elseif platform.is_win then
    mod.SUPER = 'ALT' -- to not conflict with Windows key shortcuts
    mod.SUPER = 'ALT|CTRL'
@@ -58,6 +59,7 @@ local keys = {
       action = act.ShowLauncherArgs({ flags = 'LAUNCH_MENU_ITEMS' }),
    },
    { key = 'f', mods = mod.SUPER, action = act.Search({ CaseInSensitiveString = '' }) },
+   { key = 'f', mods = mod.CTRLSUPER, action = act.ToggleFullScreen },
 
    -- copy/paste --
    { key = 'c', mods = mod.SUPER, action = act.CopyTo('Clipboard') },
