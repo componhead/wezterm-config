@@ -17,57 +17,62 @@ elseif platform.is_win then
 end
 
 local keys = {
+   { key = 'Escape', mods = mod.LEADER, action = 'PopKeyTable' },
    -- misc/useful --
-   { key = 'F1', mods = 'NONE',    action = 'ActivateCopyMode' },
-   { key = 'F2', mods = 'NONE',    action = act.ActivateCommandPalette },
+   { key = 'F1', mods = 'NONE', action = 'ActivateCopyMode' },
+   { key = 'F2', mods = 'NONE', action = act.ActivateCommandPalette },
    { key = 'F2', mods = mod.SHIFT, action = act.ShowLauncher },
-   { key = 'F3', mods = 'NONE',    action = act.ShowTabNavigator },
+   { key = 'F3', mods = 'NONE', action = act.ShowTabNavigator },
    { key = 'F3', mods = mod.SHIFT, action = act.SpawnTab('DefaultDomain') },
-   { key = 'F4', mods = 'NONE',    action = act.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' } },
+   { key = 'F4', mods = 'NONE', action = act.ShowLauncherArgs({ flags = 'FUZZY|WORKSPACES' }) },
    -- Prompt for a name to use for a new workspace and switch to it.
    {
       key = 'F4',
       mods = mod.SHIFT,
-      action = act.PromptInputLine {
-         description = wezterm.format {
+      action = act.PromptInputLine({
+         description = wezterm.format({
             { Attribute = { Intensity = 'Bold' } },
             { Foreground = { AnsiColor = 'Fuchsia' } },
             { Text = 'Enter name for new workspace' },
-         },
+         }),
          action = wezterm.action_callback(function(window, pane, line)
             -- line will be `nil` if they hit escape without entering anything
             -- An empty string if they just hit enter
             -- Or the actual line of text they wrote
             if line then
                window:perform_action(
-                  act.SwitchToWorkspace {
+                  act.SwitchToWorkspace({
                      name = line,
-                  },
+                  }),
                   pane
                )
             end
          end),
-      },
+      }),
    },
-   { key = 'F5',  mods = 'NONE',    action = act.SplitHorizontal },
-   { key = 'F5',  mods = mod.SHIFT, action = act.SplitVertical },
-   { key = 'F12', mods = 'NONE',    action = act.ShowDebugOverlay },
-   { key = 'f',   mods = mod.SUPER, action = act.Search({ CaseInSensitiveString = '' }) },
+   { key = 'F5', mods = 'NONE', action = act.SplitHorizontal },
+   { key = 'F5', mods = mod.SHIFT, action = act.SplitVertical },
+   {
+      key = 'F12',
+      mods = 'NONE',
+      action = act.ShowLauncherArgs({ flags = 'LAUNCH_MENU_ITEMS' }),
+   },
+   { key = 'f', mods = mod.SUPER, action = act.Search({ CaseInSensitiveString = '' }) },
 
    -- copy/paste --
-   { key = 'c',   mods = mod.SUPER, action = act.CopyTo('Clipboard') },
-   { key = 'v',   mods = mod.SUPER, action = act.PasteFrom('Clipboard') },
-   { key = 'w',   mods = mod.SUPER, action = act.CloseCurrentTab({ confirm = false }) },
+   { key = 'c', mods = mod.SUPER, action = act.CopyTo('Clipboard') },
+   { key = 'v', mods = mod.SUPER, action = act.PasteFrom('Clipboard') },
+   { key = 'w', mods = mod.SUPER, action = act.CloseCurrentTab({ confirm = false }) },
 
    -- tabs: navigation
-   { key = '[',   mods = mod.SUPER, action = act.ActivateTabRelative(-1) },
-   { key = ']',   mods = mod.SUPER, action = act.ActivateTabRelative(1) },
-   { key = '{',   mods = mod.SUPER, action = act.MoveTabRelative(-1) },
-   { key = '}',   mods = mod.SUPER, action = act.MoveTabRelative(1) },
+   { key = '[', mods = mod.SUPER, action = act.ActivateTabRelative(-1) },
+   { key = '[', mods = mod.SUPER, action = act.ActivateTabRelative(1) },
+   { key = '{', mods = mod.SUPER, action = act.MoveTabRelative(-1) },
+   { key = '}', mods = mod.SUPER, action = act.MoveTabRelative(1) },
 
    -- window --
    -- spawn windows
-   { key = 'n',   mods = mod.SUPER, action = act.SpawnWindow },
+   { key = 'n', mods = mod.SUPER, action = act.SpawnWindow },
 
    -- background controls --
    {
@@ -94,17 +99,17 @@ local keys = {
    {
       key = 'h',
       mods = mod.LEADER,
-      action = wezterm.action.QuickSelectArgs {
+      action = wezterm.action.QuickSelectArgs({
          label = 'select sha',
          patterns = {
             ' [0-9a-f]{7,40} ',
          },
-      },
+      }),
    },
    {
       key = 'u',
       mods = mod.LEADER,
-      action = wezterm.action.QuickSelectArgs {
+      action = wezterm.action.QuickSelectArgs({
          label = 'open url',
          patterns = {
             'https?://\\S+',
@@ -114,7 +119,7 @@ local keys = {
             wezterm.log_info('opening: ' .. url)
             wezterm.open_with(url)
          end),
-      },
+      }),
    },
    -- panes: zoom+close pane
    { key = 'z', mods = mod.SUPER, action = act.TogglePaneZoomState },
@@ -129,7 +134,7 @@ local keys = {
    -- key-tables --
    -- resizes fonts
    {
-      key = 'F',
+      key = 'f',
       mods = mod.LEADER,
       action = act.ActivateKeyTable({
          name = 'resize_font',
@@ -139,7 +144,7 @@ local keys = {
    },
    -- resize panes
    {
-      key = 'P',
+      key = 'p',
       mods = mod.LEADER,
       action = act.ActivateKeyTable({
          name = 'resize_pane',
@@ -151,19 +156,15 @@ local keys = {
 
 local key_tables = {
    resize_font = {
-      { key = 'k',      action = act.IncreaseFontSize },
-      { key = 'j',      action = act.DecreaseFontSize },
-      { key = 'r',      action = act.ResetFontSize },
-      { key = 'Escape', action = 'PopKeyTable' },
-      { key = 'q',      action = 'PopKeyTable' },
+      { key = 'k', action = act.IncreaseFontSize },
+      { key = 'j', action = act.DecreaseFontSize },
+      { key = 'r', action = act.ResetFontSize },
    },
    resize_pane = {
-      { key = 'k',      action = act.AdjustPaneSize({ 'Up', 1 }) },
-      { key = 'j',      action = act.AdjustPaneSize({ 'Down', 1 }) },
-      { key = 'h',      action = act.AdjustPaneSize({ 'Left', 1 }) },
-      { key = 'l',      action = act.AdjustPaneSize({ 'Right', 1 }) },
-      { key = 'Escape', action = 'PopKeyTable' },
-      { key = 'q',      action = 'PopKeyTable' },
+      { key = 'k', action = act.AdjustPaneSize({ 'Up', 1 }) },
+      { key = 'j', action = act.AdjustPaneSize({ 'Down', 1 }) },
+      { key = 'h', action = act.AdjustPaneSize({ 'Left', 1 }) },
+      { key = 'l', action = act.AdjustPaneSize({ 'Right', 1 }) },
    },
 }
 

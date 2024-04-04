@@ -6,6 +6,8 @@ return {
    exit_behavior = 'CloseOnCleanExit', -- if the shell program exited with a successful status
    status_update_interval = 1000,
 
+   command_palette_font_size = 18.0,
+
    scrollback_lines = 5000,
 
    -- hyperlink rules
