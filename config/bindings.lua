@@ -181,7 +181,7 @@ local mouse_bindings = {
 
 return {
    disable_default_key_bindings = true,
-   leader = { key = 'a', mods = 'CTRL' },
+   leader = { key = 'a', mods = 'SUPER' },
    keys = keys,
    key_tables = key_tables,
    mouse_bindings = mouse_bindings,
