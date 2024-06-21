@@ -24,7 +24,9 @@ local keys = {
    { key = 'F2', mods = 'NONE', action = act.ActivateCommandPalette },
    { key = 'F2', mods = mod.SHIFT, action = act.ShowLauncher },
    { key = 'F3', mods = 'NONE', action = act.ShowTabNavigator },
-   { key = 'F3', mods = mod.SHIFT, action = act.SpawnTab('DefaultDomain') },
+   { key = 'F3', mods = mod.SHIFT, action = act.SpawnTab('CurrentPaneDomain') },
+   { key = 'T', mods = mod.LEADER, action = act.MoveTabRelative(-1) },
+   { key = 't', mods = mod.LEADER, action = act.MoveTabRelative(1) },
    { key = 'F4', mods = 'NONE', action = act.ShowLauncherArgs({ flags = 'FUZZY|WORKSPACES' }) },
    -- Prompt for a name to use for a new workspace and switch to it.
    {
