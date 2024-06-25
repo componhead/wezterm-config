@@ -20,18 +20,23 @@ end
 local keys = {
    { key = 'Escape', mods = mod.LEADER, action = 'PopKeyTable' },
    -- misc/useful --
-   { key = 'F1', mods = 'NONE', action = 'ActivateCopyMode' },
-   { key = 'F2', mods = 'NONE', action = act.ActivateCommandPalette },
-   { key = 'F2', mods = mod.SHIFT, action = act.ShowLauncher },
-   { key = 'F3', mods = 'NONE', action = act.ShowTabNavigator },
-   { key = 'F3', mods = mod.SHIFT, action = act.SpawnTab('CurrentPaneDomain') },
-   { key = 'T', mods = mod.LEADER, action = act.MoveTabRelative(-1) },
-   { key = 't', mods = mod.LEADER, action = act.MoveTabRelative(1) },
-   { key = 'F4', mods = 'NONE', action = act.ShowLauncherArgs({ flags = 'FUZZY|WORKSPACES' }) },
+   {
+      key = 'a',
+      mods = mod.LEADER,
+      action = act.SpawnTab('CurrentPaneDomain'),
+   },
+   {
+      key = 'F1',
+      mods = mod.LEADER,
+      action = act.ShowLauncherArgs({ flags = 'LAUNCH_MENU_ITEMS' }),
+   },
+   { key = 'F2', mods = mod.LEADER, action = act.ActivateCommandPalette },
+   { key = 'F3', mods = mod.LEADER, action = act.ShowLauncher },
+   { key = 'F4', mods = mod.LEADER, action = act.ShowLauncherArgs({ flags = 'FUZZY|WORKSPACES' }) },
    -- Prompt for a name to use for a new workspace and switch to it.
    {
-      key = 'F4',
-      mods = mod.SHIFT,
+      key = 'F5',
+      mods = mod.LEADER,
       action = act.PromptInputLine({
          description = wezterm.format({
             { Attribute = { Intensity = 'Bold' } },
@@ -53,13 +58,9 @@ local keys = {
          end),
       }),
    },
-   { key = 'F5', mods = 'NONE', action = act.SplitHorizontal },
-   { key = 'F5', mods = mod.SHIFT, action = act.SplitVertical },
-   {
-      key = 'F12',
-      mods = 'NONE',
-      action = act.ShowLauncherArgs({ flags = 'LAUNCH_MENU_ITEMS' }),
-   },
+
+   { key = 'h', mods = mod.LEADER, action = act.SplitHorizontal },
+   { key = 'v', mods = mod.LEADER, action = act.SplitVertical },
    { key = 'f', mods = mod.SUPER, action = act.Search({ CaseInSensitiveString = '' }) },
    { key = 'f', mods = mod.CTRLSUPER, action = act.ToggleFullScreen },
 
@@ -69,10 +70,10 @@ local keys = {
    { key = 'w', mods = mod.SUPER, action = act.CloseCurrentTab({ confirm = false }) },
 
    -- tabs: navigation
-   { key = '[', mods = mod.SUPER, action = act.ActivateTabRelative(-1) },
-   { key = '[', mods = mod.SUPER, action = act.ActivateTabRelative(1) },
-   { key = '{', mods = mod.SUPER, action = act.MoveTabRelative(-1) },
-   { key = '}', mods = mod.SUPER, action = act.MoveTabRelative(1) },
+   { key = 'T', mods = mod.LEADER, action = act.ActivateTabRelative(0) },
+   { key = 't', mods = mod.LEADER, action = act.ActivateTabRelative(1) },
+   { key = '{', mods = mod.LEADER, action = act.MoveTabRelative(-1) },
+   { key = '}', mods = mod.LEADER, action = act.MoveTabRelative(1) },
 
    -- window --
    -- spawn windows
@@ -157,6 +158,14 @@ local keys = {
       }),
    },
 }
+
+-- tab to Function keys
+for i = 1, 8 do
+   table.insert(keys, {
+      key = 'F' .. tostring(i),
+      action = act.ActivateTab(i - 1),
+   })
+end
 
 local key_tables = {
    resize_font = {

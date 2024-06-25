@@ -36,14 +36,15 @@ M.set_process_name = function(s)
    return a:gsub('%.exe$', '')
 end
 
-M.set_title = function(process_name, base_title, max_width, inset)
+M.set_title = function(idx, process_name, base_title, max_width, inset)
    local title
-   inset = inset or 6
+
+   inset = inset or 0
 
    if process_name:len() > 0 then
-      title = process_name .. ' ~ ' .. base_title
+      title = idx + 1 .. '  ' .. process_name .. ' => ' .. base_title
    else
-      title = base_title
+      title = idx + 1 .. '  ' .. base_title
    end
 
    if title:len() > max_width - inset then
@@ -76,11 +77,13 @@ M.setup = function()
    wezterm.on('format-tab-title', function(tab, _tabs, _panes, _config, hover, max_width)
       M.cells = {}
 
+      local idx = tab.tab_index
       local bg
       local fg
       local process_name = M.set_process_name(tab.active_pane.foreground_process_name)
       local is_admin = M.check_if_admin(tab.active_pane.title)
-      local title = M.set_title(process_name, tab.active_pane.title, max_width, (is_admin and 8))
+      local title =
+         M.set_title(idx, process_name, tab.active_pane.title, max_width, (is_admin and 8))
 
       if tab.is_active then
          bg = M.colors.is_active.bg
