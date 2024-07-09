@@ -102,7 +102,7 @@ local keys = {
       end),
    },
    {
-      key = 'h',
+      key = 'H',
       mods = mod.LEADER,
       action = wezterm.action.QuickSelectArgs({
          label = 'select sha',
@@ -112,7 +112,7 @@ local keys = {
       }),
    },
    {
-      key = 'u',
+      key = 'U',
       mods = mod.LEADER,
       action = wezterm.action.QuickSelectArgs({
          label = 'open url',
