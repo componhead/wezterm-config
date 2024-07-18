@@ -31,7 +31,7 @@ local keys = {
       action = act.ShowLauncherArgs({ flags = 'LAUNCH_MENU_ITEMS' }),
    },
    { key = 'F2', mods = mod.LEADER, action = act.ActivateCommandPalette },
-   { key = 'F3', mods = mod.LEADER, action = act.ShowLauncher },
+   { key = 'F3', mods = mod.LEADER, action = act.SpawnTab('DefaultDomain') },
    { key = 'F4', mods = mod.LEADER, action = act.ShowLauncherArgs({ flags = 'FUZZY|WORKSPACES' }) },
    -- Prompt for a name to use for a new workspace and switch to it.
    {
@@ -128,7 +128,7 @@ local keys = {
    },
    -- panes: zoom+close pane
    { key = 'z', mods = mod.SUPER, action = act.TogglePaneZoomState },
-   { key = 'w', mods = mod.SUPER, action = act.CloseCurrentPane({ confirm = false }) },
+   { key = 'w', mods = mod.SUPER, action = act.CloseCurrentTab({ confirm = true }) },
 
    -- panes: navigation
    { key = 'k', mods = mod.SUPER, action = act.ActivatePaneDirection('Up') },
