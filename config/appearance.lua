@@ -7,6 +7,7 @@ return {
    max_fps = 60,
    front_end = 'WebGpu',
    webgpu_power_preference = 'HighPerformance',
+   enable_tab_bar = false,
 
    -- color scheme
    colors = colors,
