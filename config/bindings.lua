@@ -19,19 +19,13 @@ end
 
 local keys = {
    { key = 'Escape', mods = mod.LEADER, action = 'PopKeyTable' },
-   -- misc/useful --
-   {
-      key = 'a',
-      mods = mod.LEADER,
-      action = act.SpawnTab('CurrentPaneDomain'),
-   },
    {
       key = 'F1',
       mods = mod.LEADER,
       action = act.ShowLauncherArgs({ flags = 'LAUNCH_MENU_ITEMS' }),
    },
    { key = 'F2', mods = mod.LEADER, action = act.ActivateCommandPalette },
-   { key = 'F3', mods = mod.LEADER, action = act.SpawnTab('DefaultDomain') },
+   { key = 'F3', mods = mod.LEADER, action = act.ShowLauncherArgs({ flags = 'FUZZY|TABS' }) },
    { key = 'F4', mods = mod.LEADER, action = act.ShowLauncherArgs({ flags = 'FUZZY|WORKSPACES' }) },
    -- Prompt for a name to use for a new workspace and switch to it.
    {
@@ -59,6 +53,31 @@ local keys = {
       }),
    },
 
+   {
+      key = 'a',
+      mods = mod.LEADER,
+      action = act.SpawnTab('CurrentPaneDomain'),
+      -- background = {
+      --    source = backdrops.random(),
+      -- },
+   },
+   {
+      key = 'r',
+      mods = mod.LEADER,
+      action = act.PromptInputLine({
+         description = 'Enter new name for tab',
+         action = wezterm.action_callback(function(window, pane, line)
+            local tab, pane, window = window:spawn_tab({ args = { 'top' } }).await()
+            -- line will be `nil` if they hit escape without entering anything
+            -- An empty string if they just hit enter
+            -- Or the actual line of text they wrote
+            -- if line then
+            --    window:active_tab():set_title(line)
+            -- end
+         end),
+      }),
+   },
+
    { key = 'h', mods = mod.LEADER, action = act.SplitHorizontal },
    { key = 'v', mods = mod.LEADER, action = act.SplitVertical },
    { key = 'f', mods = mod.SUPER, action = act.Search({ CaseInSensitiveString = '' }) },
@@ -67,40 +86,25 @@ local keys = {
    -- copy/paste --
    { key = 'c', mods = mod.SUPER, action = act.CopyTo('Clipboard') },
    { key = 'v', mods = mod.SUPER, action = act.PasteFrom('Clipboard') },
-   { key = 'w', mods = mod.SUPER, action = act.CloseCurrentTab({ confirm = false }) },
 
    -- tabs: navigation
    { key = 'T', mods = mod.LEADER, action = act.ActivateTabRelative(0) },
    { key = 't', mods = mod.LEADER, action = act.ActivateTabRelative(1) },
    { key = '{', mods = mod.LEADER, action = act.MoveTabRelative(-1) },
    { key = '}', mods = mod.LEADER, action = act.MoveTabRelative(1) },
+   { key = 'w', mods = mod.SUPER, action = act.CloseCurrentTab({ confirm = false }) },
 
    -- window --
    -- spawn windows
-   { key = 'n', mods = mod.SUPER, action = act.SpawnWindow },
+   { key = 'n', mods = mod.LEADER, action = act.SpawnWindow },
 
-   -- background controls --
-   {
-      key = [[/]],
-      mods = mod.SUPER,
-      action = wezterm.action_callback(function(window, _pane)
-         backdrops:random(window)
-      end),
-   },
-   {
-      key = [[,]],
-      mods = mod.SUPER,
-      action = wezterm.action_callback(function(window, _pane)
-         backdrops:cycle_back(window)
-      end),
-   },
-   {
-      key = [[.]],
-      mods = mod.SUPER,
-      action = wezterm.action_callback(function(window, _pane)
-         backdrops:cycle_forward(window)
-      end),
-   },
+   -- {
+   --    key = [[/]],
+   --    mods = mod.SUPER,
+   --    action = wezterm.action_callback(function(window, _pane)
+   --       backdrops:random(window)
+   --    end),
+   -- },
    {
       key = 'H',
       mods = mod.LEADER,
