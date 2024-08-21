@@ -19,4 +19,10 @@ return {
          highlight = 1,
       },
    }),
+
+   inactive_pane_hsb = {
+      hue = 0.5,
+      saturation = 0.5,
+      brightness = 0.6,
+   },
 }

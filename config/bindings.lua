@@ -92,6 +92,7 @@ local keys = {
    { key = 't', mods = mod.LEADER, action = act.ActivateTabRelative(1) },
    { key = '{', mods = mod.LEADER, action = act.MoveTabRelative(-1) },
    { key = '}', mods = mod.LEADER, action = act.MoveTabRelative(1) },
+
    { key = 'w', mods = mod.SUPER, action = act.CloseCurrentTab({ confirm = false }) },
 
    -- window --
