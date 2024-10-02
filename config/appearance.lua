@@ -3,7 +3,7 @@ local colors = require('colors.custom')
 
 return {
    hide_mouse_cursor_when_typing = true,
-   hide_tab_bar_if_only_one_tab = true,
+   hide_tab_bar_if_only_one_tab = false,
    animation_fps = 60,
    max_fps = 60,
    front_end = 'WebGpu',

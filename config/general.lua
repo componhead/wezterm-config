@@ -8,7 +8,7 @@ return {
 
    command_palette_font_size = 18.0,
 
-   scrollback_lines = 5000,
+   scrollback_lines = 100000,
 
    -- hyperlink rules
    hyperlink_rules = table.insert(wezterm.default_hyperlink_rules(), {

@@ -20,6 +20,7 @@ M.colors = {
       bg = '#45475a',
       fg = '#1c1b19',
    },
+   
    is_active = {
       bg = '#7FB4CA',
       fg = '#11111b',
@@ -27,6 +28,11 @@ M.colors = {
 
    hover = {
       bg = '#587d8c',
+      fg = '#1c1b19',
+   },
+
+   zoomed = {
+      bg = '#FF0000',
       fg = '#1c1b19',
    },
 }
@@ -42,9 +48,9 @@ M.set_title = function(idx, process_name, base_title, max_width, inset)
    inset = inset or 0
 
    if process_name:len() > 0 then
-      title = idx + 1 .. '  ' .. process_name .. ' => ' .. base_title
+      title = idx + 1 .. ' ' .. process_name .. '=>' .. base_title
    else
-      title = idx + 1 .. '  ' .. base_title
+      title = idx + 1 .. ' ' .. base_title
    end
 
    if title:len() > max_width - inset then
@@ -82,8 +88,9 @@ M.setup = function()
       local fg
       local process_name = M.set_process_name(tab.active_pane.foreground_process_name)
       local is_admin = M.check_if_admin(tab.active_pane.title)
+
       local title =
-         M.set_title(idx, process_name, tab.active_pane.title, max_width, (is_admin and 8))
+      M.set_title(idx, process_name, tab.active_pane.title, max_width, (is_admin and 8))
 
       if tab.is_active then
          bg = M.colors.is_active.bg
@@ -94,6 +101,11 @@ M.setup = function()
       else
          bg = M.colors.default.bg
          fg = M.colors.default.fg
+      end
+
+      if tab.active_pane.is_zoomed then
+         bg = M.colors.zoomed.bg
+         fg = M.colors.is_active.fg
       end
 
       local has_unseen_output = false

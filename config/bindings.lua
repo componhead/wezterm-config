@@ -78,8 +78,10 @@ local keys = {
       }),
    },
 
-   { key = 'h', mods = mod.LEADER, action = act.SplitHorizontal },
-   { key = 'v', mods = mod.LEADER, action = act.SplitVertical },
+   -- wez bug?
+   { key = 'v', mods = mod.LEADER, action = act.SplitHorizontal },
+   -- wez bug?
+   { key = 'h', mods = mod.LEADER, action = act.SplitVertical },
    { key = 'f', mods = mod.SUPER, action = act.Search({ CaseInSensitiveString = '' }) },
    { key = 'f', mods = mod.CTRLSUPER, action = act.ToggleFullScreen },
 
@@ -132,7 +134,7 @@ local keys = {
       }),
    },
    -- panes: zoom+close pane
-   { key = 'z', mods = mod.SUPER, action = act.TogglePaneZoomState },
+   { key = 'z', mods = mod.LEADER, action = act.TogglePaneZoomState },
    { key = 'w', mods = mod.SUPER, action = act.CloseCurrentTab({ confirm = true }) },
 
    -- panes: navigation
