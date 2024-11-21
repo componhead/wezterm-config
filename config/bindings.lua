@@ -11,6 +11,7 @@ if platform.is_mac then
    mod.CTRL = 'CTRL'
    mod.ALT = 'ALT'
    mod.LEADER = 'LEADER'
+   mod.SHIFTSUPER = 'SHIFT|SUPER'
    mod.CTRLSUPER = 'CTRL|SUPER'
 elseif platform.is_win then
    mod.SUPER = 'ALT' -- to not conflict with Windows key shortcuts
@@ -154,12 +155,31 @@ local keys = {
          timemout_miliseconds = 1000,
       }),
    },
+   {
+      key = '=',
+      mods = mod.SUPER,
+      action = act.IncreaseFontSize,
+   },
+   {
+      key = '-',
+      mods = mod.SUPER,
+      action = act.DecreaseFontSize,
+   },
    -- resize panes
    {
       key = 'p',
       mods = mod.LEADER,
       action = act.ActivateKeyTable({
          name = 'resize_pane',
+         one_shot = false,
+         timemout_miliseconds = 1000,
+      }),
+   },
+   {
+      key = 'd',
+      mods = mod.LEADER,
+      action = act.ActivateKeyTable({
+         name = 'copy_mode',
          one_shot = false,
          timemout_miliseconds = 1000,
       }),
@@ -174,6 +194,15 @@ for i = 1, 8 do
    })
 end
 
+local mouse_bindings = {
+   -- Ctrl-click will open the link under the mouse cursor
+   {
+      event = { Up = { streak = 1, button = 'Left' } },
+      mods = 'CTRL',
+      action = act.OpenLinkAtMouseCursor,
+   },
+}
+
 local key_tables = {
    resize_font = {
       { key = 'k', action = act.IncreaseFontSize },
@@ -186,15 +215,128 @@ local key_tables = {
       { key = 'h', action = act.AdjustPaneSize({ 'Left', 1 }) },
       { key = 'l', action = act.AdjustPaneSize({ 'Right', 1 }) },
    },
-}
-
-local mouse_bindings = {
-   -- Ctrl-click will open the link under the mouse cursor
-   {
-      event = { Up = { streak = 1, button = 'Left' } },
-      mods = 'CTRL',
-      action = act.OpenLinkAtMouseCursor,
-   },
+   -- copy_mode = {
+   --    { key = 'd', mods = mod.LEADER, action = 'PopKeyTable' },
+   --    { key = 'h', action = act.CopyMode 'MoveLeft' },
+   --    { key = 'j', action = act.CopyMode 'MoveDown' },
+   --    { key = 'k', action = act.CopyMode 'MoveUp' },
+   --    { key = 'l', action = act.CopyMode 'MoveRight' },
+   --    { key = 'w', action = act.CopyMode 'MoveForwardWord' },
+   --    {
+   --       key = 'b',
+   --       mods = 'NONE',
+   --       action = act.CopyMode 'MoveBackwardWord',
+   --    },
+   --    {
+   --       key = 'Enter',
+   --       mods = 'NONE',
+   --       action = act.CopyMode 'MoveToStartOfNextLine',
+   --    },
+   --    {
+   --       key = 'v',
+   --       mods = 'NONE',
+   --       action = act.CopyMode { SetSelectionMode = 'Cell' },
+   --    },
+   --    {
+   --       key = '$',
+   --       mods = 'NONE',
+   --       action = act.CopyMode 'MoveToEndOfLineContent',
+   --    },
+   --    {
+   --       key = '^',
+   --       mods = 'NONE',
+   --       action = act.CopyMode 'MoveToStartOfLineContent',
+   --    },
+   --    { key = ',', mods = 'NONE', action = act.CopyMode 'JumpReverse' },
+   --    { key = '0', mods = 'NONE', action = act.CopyMode 'MoveToStartOfLine' },
+   --    { key = ';', mods = 'NONE', action = act.CopyMode 'JumpAgain' },
+   --    {
+   --       key = 'f',
+   --       mods = 'NONE',
+   --       action = act.CopyMode { JumpForward = { prev_char = false } },
+   --    },
+   --    {
+   --       key = 'F',
+   --       mods = 'SHIFT',
+   --       action = act.CopyMode { JumpBackward = { prev_char = false } },
+   --    },
+   --    {
+   --       key = 'Home',
+   --       mods = 'CTRL',
+   --       action = act.CopyMode 'MoveToScrollbackTop',
+   --    },
+   --    {
+   --       key = 'End',
+   --       mods = 'CTRL',
+   --       action = act.CopyMode 'MoveToScrollbackBottom',
+   --    },
+   --    {
+   --       key = 'H',
+   --       mods = 'SHIFT',
+   --       action = act.CopyMode 'MoveToViewportTop',
+   --    },
+   --    {
+   --       key = 'L',
+   --       mods = 'SHIFT',
+   --       action = act.CopyMode 'MoveToViewportBottom',
+   --    },
+   --    {
+   --       key = 'M',
+   --       mods = 'SHIFT',
+   --       action = act.CopyMode 'MoveToViewportMiddle',
+   --    },
+   --    {
+   --       key = '%',
+   --       mods = 'NONE',
+   --       action = act.CopyMode 'MoveToSelectionOtherEndHoriz',
+   --    },
+   --    {
+   --       key = 'T',
+   --       mods = 'SHIFT',
+   --       action = act.CopyMode { JumpBackward = { prev_char = true } },
+   --    },
+   --    {
+   --       key = 'V',
+   --       mods = 'SHIFT',
+   --       action = act.CopyMode { SetSelectionMode = 'Line' },
+   --    },
+   --    { key = 'b', mods = 'CTRL', action = act.CopyMode 'PageUp' },
+   --    { key = 'f', mods = 'CTRL', action = act.CopyMode 'PageDown' },
+   --    {
+   --       key = 'c',
+   --       mods = 'CTRL',
+   --       action = act.CopyMode 'Close'
+   --    },
+   --    {
+   --       key = 'd',
+   --       mods = 'CTRL',
+   --       action = act.CopyMode { MoveByPage = 0.5 },
+   --    },
+   --    {
+   --       key = 'e',
+   --       mods = 'NONE',
+   --       action = act.CopyMode 'MoveForwardWordEnd',
+   --    },
+   --    {
+   --       key = 'u',
+   --       mods = 'CTRL',
+   --       action = act.CopyMode { MoveByPage = -0.5 },
+   --    },
+   --    {
+   --       key = 'v',
+   --       mods = 'CTRL',
+   --       action = act.CopyMode { SetSelectionMode = 'Block' },
+   --    },
+   --    {
+   --       key = 'y',
+   --       mods = 'NONE',
+   --       action = act.Multiple {
+   --          { CopyTo = 'ClipboardAndPrimarySelection' },
+   --          { CopyMode = 'MoveToScrollbackBottom' },
+   --          act.CopyMode 'Close'
+   --       },
+   --    },
+   -- },
 }
 
 return {
