@@ -1,0 +1,37 @@
+local wezterm = require('wezterm')
+local act = wezterm.action
+local mod = require('../mods')
+
+return {
+   { key = 'b', action = act.CopyMode 'MoveBackwardWord' },
+   { key = 'b', mods = 'CTRL', action = act.CopyMode 'PageUp' },
+   { key = 'c', mods = 'CTRL', action = act.CopyMode 'Close' },
+   { key = 'd', mods = mod.LEADER, action = 'PopKeyTable' },
+   { key = 'e', action = act.CopyMode 'MoveForwardWordEnd', },
+   { key = 'f', action = act.CopyMode { JumpForward = { prev_char = false } }, },
+   { key = 'f', mods = 'CTRL', action = act.CopyMode 'PageDown' },
+   { key = 'F', action = act.CopyMode { JumpBackward = { prev_char = false } }, },
+   { key = 'h', action = act.CopyMode 'MoveLeft' },
+   { key = 'H', action = act.CopyMode 'MoveToViewportTop', },
+   { key = 'k', action = act.CopyMode 'MoveUp' },
+   { key = 'j', action = act.CopyMode 'MoveDown' },
+   { key = 'l', action = act.CopyMode 'MoveRight' },
+   { key = 'L', action = act.CopyMode 'MoveToViewportBottom', },
+   { key = 'M', action = act.CopyMode 'MoveToViewportMiddle', },
+   { key = 'T', action = act.CopyMode { JumpBackward = { prev_char = true } }, },
+   { key = 'u', mods = 'CTRL', action = act.CopyMode { MoveByPage = -0.5 }, },
+   { key = 'v', action = act.CopyMode { SetSelectionMode = 'Cell' }, },
+   { key = 'v', mods = 'CTRL', action = act.CopyMode { SetSelectionMode = 'Block' }, },
+   { key = 'V', action = act.CopyMode { SetSelectionMode = 'Line' }, },
+   { key = 'w', action = act.CopyMode 'MoveForwardWord' },
+   { key = 'y', action = act.Multiple { { CopyTo = 'ClipboardAndPrimarySelection' }, { CopyMode = 'MoveToScrollbackBottom' }, act.CopyMode 'Close' }, },
+   { key = '^', action = act.CopyMode 'MoveToStartOfLineContent', },
+   { key = '$', action = act.CopyMode 'MoveToEndOfLineContent', },
+   { key = '%', action = act.CopyMode 'MoveToSelectionOtherEndHoriz', },
+   { key = ',', action = act.CopyMode 'JumpReverse' },
+   { key = ';', action = act.CopyMode 'JumpAgain' },
+   { key = '0', action = act.CopyMode 'MoveToStartOfLine' },
+   { key = 'Enter', action = act.CopyMode 'MoveToStartOfNextLine', },
+   { key = 'Home', mods = 'CTRL', action = act.CopyMode 'MoveToScrollbackTop', },
+   { key = 'End', mods = 'CTRL', action = act.CopyMode 'MoveToScrollbackBottom', },
+}
