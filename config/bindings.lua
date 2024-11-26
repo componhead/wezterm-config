@@ -154,6 +154,11 @@ local keys = {
       action = act.ResetFontSize,
    },
    {
+      key = '0',
+      mods = mod.SUPER,
+      action = act.ResetFontSize,
+   },
+   {
       key = '=',
       mods = mod.SUPER,
       action = act.IncreaseFontSize,
