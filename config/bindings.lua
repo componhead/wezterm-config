@@ -1,7 +1,23 @@
 local wezterm = require('wezterm')
 local backdrops = require('utils.backdrops')
-local mod = require('mods')
 local act = wezterm.action
+local platform = require('utils.platform')()
+
+local mod = {}
+
+if platform.is_mac then
+   mod.SUPER = 'SUPER'
+   mod.SHIFT = 'SHIFT'
+   mod.CTRL = 'CTRL'
+   mod.ALT = 'ALT'
+   mod.LEADER = 'LEADER'
+   mod.SHIFTSUPER = 'SHIFT|SUPER'
+   mod.CTRLSUPER = 'CTRL|SUPER'
+elseif platform.is_win then
+   mod.SUPER = 'ALT' -- to not conflict with Windows key shortcuts
+   mod.SUPER = 'ALT|CTRL'
+end
+
 
 local keys = {
    -- LEADER KEY
@@ -185,7 +201,7 @@ return {
          { key = 'h', action = act.AdjustPaneSize({ 'Left', 1 }) },
          { key = 'l', action = act.AdjustPaneSize({ 'Right', 1 }) },
       },
-      copy_mode = require('keytables/copy_mode'),
+      -- copy_mode = require('config/keytables/copy_mode'),
    },
    mouse_bindings = mouse_bindings,
 }
