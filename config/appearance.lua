@@ -11,17 +11,17 @@ return {
    enable_tab_bar = true,
 
    -- background
-   background = {
-      {
-         source = { File = wezterm.GLOBAL.background },
-      },
-      {
-         source = { Color = colors.background },
-         height = '100%',
-         width = '100%',
-         opacity = 0.99,
-      },
-   },
+   -- background = {
+   --    {
+   --       source = { File = wezterm.GLOBAL.background },
+   --    },
+   --    {
+   --       source = { Color = colors.background },
+   --       height = '100%',
+   --       width = '100%',
+   --       opacity = 0.99,
+   --    },
+   -- },
 
    -- scrollbar
    enable_scroll_bar = true,
@@ -46,5 +46,6 @@ return {
    },
    inactive_pane_hsb = { hue = 0.6, saturation = 0.4, brightness = 0.2 },
    initial_cols = 200,
-   initial_rows = 80
+   initial_rows = 80,
+   window_background_opacity = 0.7
 }
