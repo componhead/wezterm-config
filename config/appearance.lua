@@ -45,4 +45,6 @@ return {
       -- font_size = fonts.font_size,
    },
    inactive_pane_hsb = { hue = 0.6, saturation = 0.4, brightness = 0.2 },
+   initial_cols = 200,
+   initial_rows = 80
 }
