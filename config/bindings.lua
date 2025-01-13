@@ -1,5 +1,5 @@
 local wezterm = require('wezterm')
-local backdrops = require('utils.backdrops')
+-- local backdrops = require('utils.backdrops')
 local act = wezterm.action
 local platform = require('utils.platform')()
 
@@ -17,7 +17,6 @@ elseif platform.is_win then
    mod.SUPER = 'ALT' -- to not conflict with Windows key shortcuts
    mod.SUPER = 'ALT|CTRL'
 end
-
 
 local keys = {
    -- LEADER KEY
@@ -147,7 +146,6 @@ local keys = {
    { key = 'j', mods = mod.SUPER, action = act.ActivatePaneDirection('Down') },
    { key = 'l', mods = mod.SUPER, action = act.ActivatePaneDirection('Right') },
    { key = 'v', mods = mod.SUPER, action = act.PasteFrom('Clipboard') },
-   { key = 'w', mods = mod.SUPER, action = act.CloseCurrentTab({ confirm = false }) },
    {
       key = '0',
       mods = mod.SUPER,

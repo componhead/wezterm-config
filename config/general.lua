@@ -1,7 +1,7 @@
 local wezterm = require('wezterm')
 
 return {
-   -- behaviours
+   window_close_confirmation = 'AlwaysPrompt',
    automatically_reload_config = true,
    exit_behavior = 'CloseOnCleanExit', -- if the shell program exited with a successful status
    status_update_interval = 1000,

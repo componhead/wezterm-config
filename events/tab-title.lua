@@ -20,7 +20,7 @@ M.colors = {
       bg = '#45475a',
       fg = '#1c1b19',
    },
-   
+
    is_active = {
       bg = '#7FB4CA',
       fg = '#11111b',
@@ -42,13 +42,24 @@ M.set_process_name = function(s)
    return a:gsub('%.exe$', '')
 end
 
-M.set_title = function(idx, process_name, base_title, max_width, inset)
+M.set_title = function(idx, process_name, tab, max_width, inset)
    local title
 
+   local pane = tab.active_pane
+   local base_title = pane.title
    inset = inset or 0
 
-   if process_name:len() > 0 then
-      title = idx + 1 .. ' ' .. process_name .. '=>' .. base_title
+   if pane.title:len() > 0 then
+      title = idx + 1
+         .. ' '
+         .. process_name
+         .. ' T'
+         .. tab.tab_id
+         .. ':P'
+         .. pane.pane_id
+         .. ' '
+         .. '=>'
+         .. base_title
    else
       title = idx + 1 .. ' ' .. base_title
    end
@@ -89,8 +100,7 @@ M.setup = function()
       local process_name = M.set_process_name(tab.active_pane.foreground_process_name)
       local is_admin = M.check_if_admin(tab.active_pane.title)
 
-      local title =
-      M.set_title(idx, process_name, tab.active_pane.title, max_width, (is_admin and 8))
+      local title = M.set_title(idx, process_name, tab, max_width, (is_admin and 8))
 
       if tab.is_active then
          bg = M.colors.is_active.bg
