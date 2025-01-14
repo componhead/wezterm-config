@@ -45,18 +45,25 @@ end
 M.set_title = function(idx, process_name, tab, max_width, inset)
    local title
    local pane = tab.active_pane
-   local stopped = ' ' .. pane.title:gsub('~?(%d+)stopped(.+)', '🚧%1')
+   local stopped = pane.title:match('%d(%d+)stopped.*')
+   local tail
+   if stopped ~= nil then
+      tail = ' 🚧' .. stopped .. '🚧'
+   else
+      tail = ' ' .. pane.title
+   end
    inset = inset or 0
 
    if pane.title:len() > 0 then
-      title = idx + 1
-         .. ' ['
+      title = ''
+         .. idx + 1
+         .. ' '
          .. process_name
-         .. '] T'
+         .. ' T'
          .. tab.tab_id
          .. ':P'
          .. pane.pane_id
-         .. stopped
+         .. tail
    else
       title = idx + 1 .. stopped
    end
