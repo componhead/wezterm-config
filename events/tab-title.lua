@@ -44,24 +44,21 @@ end
 
 M.set_title = function(idx, process_name, tab, max_width, inset)
    local title
-
    local pane = tab.active_pane
-   local base_title = pane.title
+   local stopped = ' ' .. pane.title:gsub('~?(%d+)stopped(.+)', '🚧%1')
    inset = inset or 0
 
    if pane.title:len() > 0 then
       title = idx + 1
-         .. ' '
+         .. ' ['
          .. process_name
-         .. ' T'
+         .. '] T'
          .. tab.tab_id
          .. ':P'
          .. pane.pane_id
-         .. ' '
-         .. '=>'
-         .. base_title
+         .. stopped
    else
-      title = idx + 1 .. ' ' .. base_title
+      title = idx + 1 .. stopped
    end
 
    if title:len() > max_width - inset then
@@ -108,14 +105,12 @@ M.setup = function()
       elseif hover then
          bg = M.colors.hover.bg
          fg = M.colors.hover.fg
+      elseif tab.active_pane.is_zoomed then
+         bg = M.colors.zoomed.bg
+         fg = M.colors.is_active.fg
       else
          bg = M.colors.default.bg
          fg = M.colors.default.fg
-      end
-
-      if tab.active_pane.is_zoomed then
-         bg = M.colors.zoomed.bg
-         fg = M.colors.is_active.fg
       end
 
       local has_unseen_output = false
