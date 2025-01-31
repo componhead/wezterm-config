@@ -35,7 +35,6 @@ return {
       top = 12,
       bottom = 7,
    },
-   window_close_confirmation = 'NeverPrompt',
    window_frame = {
       active_titlebar_bg = '#090909',
       -- font = fonts.font,
@@ -44,5 +43,5 @@ return {
    inactive_pane_hsb = { hue = 0.6, saturation = 0.4, brightness = 0.2 },
    initial_cols = 200,
    initial_rows = 80,
-   window_background_opacity = 0.7
+   window_background_opacity = 0.7,
 }
