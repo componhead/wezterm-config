@@ -28,7 +28,11 @@ local keys = {
    },
    { key = 'F2', mods = mod.LEADER, action = act.ActivateCommandPalette },
    { key = 'F3', mods = mod.LEADER, action = act.ShowLauncherArgs({ flags = 'FUZZY|TABS' }) },
-   { key = 'F4', mods = mod.LEADER, action = act.ShowLauncherArgs({ flags = 'FUZZY|WORKSPACES' }) },
+   {
+      key = 'F4',
+      mods = mod.LEADER,
+      action = act.ShowLauncherArgs({ flags = 'FUZZY|WORKSPACES' }),
+   },
    {
       key = 'F5',
       mods = mod.LEADER,
@@ -80,6 +84,7 @@ local keys = {
       }),
    },
    { key = 'h', mods = mod.LEADER, action = act.SplitVertical },
+   { key = 'L', mods = mod.LEADER, action = wezterm.action({ EmitEvent = 'load_session' }) },
    { key = 'n', mods = mod.LEADER, action = act.SpawnWindow },
    {
       key = 'p',
@@ -90,6 +95,7 @@ local keys = {
          timemout_miliseconds = 1000,
       }),
    },
+   { key = 'R', mods = mod.LEADER, action = wezterm.action({ EmitEvent = 'restore_session' }) },
    {
       key = 'r',
       mods = mod.LEADER,
@@ -106,6 +112,7 @@ local keys = {
          end),
       }),
    },
+   { key = 'S', mods = mod.LEADER, action = wezterm.action({ EmitEvent = 'save_session' }) },
    {
       key = 's',
       mods = mod.LEADER,

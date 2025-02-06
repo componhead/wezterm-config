@@ -1,6 +1,7 @@
 local cfg = require('config'):init()
 local wezterm = require('wezterm')
 local mux = wezterm.mux
+local session_manager = require('wezterm-session-manager/session-manager')
 
 wezterm.on('gui-startup', function()
    local tab, pane, window = mux.spawn_window({})
@@ -30,8 +31,17 @@ wezterm.on('user-var-changed', function(window, pane, name, value)
    window:set_config_overrides(overrides)
 end)
 
-require('utils.backdrops'):set_files():random()
+wezterm.on('save_session', function(window)
+   session_manager.save_state(window)
+end)
+wezterm.on('load_session', function(window)
+   session_manager.load_state(window)
+end)
+wezterm.on('restore_session', function(window)
+   session_manager.restore_state(window)
+end)
 
+require('utils.backdrops'):set_files():random()
 require('events.right-status').setup()
 require('events.tab-title').setup()
 require('events.new-tab-button').setup()
