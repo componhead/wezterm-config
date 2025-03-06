@@ -70,16 +70,7 @@ local keys = {
       mods = mod.LEADER,
       action = act.ActivateKeyTable({
          name = 'copy_mode',
-         one_shot = false,
-         timemout_miliseconds = 1000,
-      }),
-   },
-   {
-      key = 'f',
-      mods = mod.LEADER,
-      action = act.ActivateKeyTable({
-         name = 'resize_font',
-         one_shot = false,
+         one_shot = true,
          timemout_miliseconds = 1000,
       }),
    },
