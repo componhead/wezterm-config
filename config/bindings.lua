@@ -74,7 +74,7 @@ local keys = {
          timemout_miliseconds = 1000,
       }),
    },
-   { key = 'h', mods = mod.LEADER, action = act.SplitVertical },
+   { key = 'H', mods = mod.LEADER, action = act.SplitVertical },
    { key = 'L', mods = mod.LEADER, action = wezterm.action({ EmitEvent = 'load_session' }) },
    { key = 'n', mods = mod.LEADER, action = act.SpawnWindow },
    {
@@ -131,7 +131,7 @@ local keys = {
          end),
       }),
    },
-   { key = 'v', mods = mod.LEADER, action = act.SplitHorizontal },
+   { key = 'V', mods = mod.LEADER, action = act.SplitHorizontal },
    { key = 'z', mods = mod.LEADER, action = act.TogglePaneZoomState },
    { key = '{', mods = mod.LEADER, action = act.MoveTabRelative(-1) },
    { key = '}', mods = mod.LEADER, action = act.MoveTabRelative(1) },
