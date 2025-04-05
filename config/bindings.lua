@@ -139,10 +139,10 @@ local keys = {
    -- SUPER KEY
    { key = 'c', mods = mod.SUPER, action = act.CopyTo('Clipboard') },
    { key = 'f', mods = mod.SUPER, action = act.Search({ CaseInSensitiveString = '' }) },
-   { key = 'h', mods = mod.SUPER, action = act.ActivatePaneDirection('Left') },
-   { key = 'k', mods = mod.SUPER, action = act.ActivatePaneDirection('Up') },
-   { key = 'j', mods = mod.SUPER, action = act.ActivatePaneDirection('Down') },
-   { key = 'l', mods = mod.SUPER, action = act.ActivatePaneDirection('Right') },
+   { key = 'h', mods = mod.LEADER, action = act.ActivatePaneDirection('Left') },
+   { key = 'k', mods = mod.LEADER, action = act.ActivatePaneDirection('Up') },
+   { key = 'j', mods = mod.LEADER, action = act.ActivatePaneDirection('Down') },
+   { key = 'l', mods = mod.LEADER, action = act.ActivatePaneDirection('Right') },
    { key = 'v', mods = mod.SUPER, action = act.PasteFrom('Clipboard') },
    {
       key = '0',
