@@ -74,8 +74,11 @@ local keys = {
          timemout_miliseconds = 1000,
       }),
    },
-   { key = 'H', mods = mod.LEADER, action = act.SplitVertical },
+   { key = 'h', mods = mod.LEADER, action = act.ActivatePaneDirection('Left') },
+   { key = 'k', mods = mod.LEADER, action = act.ActivatePaneDirection('Up') },
+   { key = 'j', mods = mod.LEADER, action = act.ActivatePaneDirection('Down') },
    { key = 'L', mods = mod.LEADER, action = wezterm.action({ EmitEvent = 'load_session' }) },
+   { key = 'l', mods = mod.LEADER, action = act.ActivatePaneDirection('Right') },
    { key = 'n', mods = mod.LEADER, action = act.SpawnWindow },
    {
       key = 'p',
@@ -104,17 +107,8 @@ local keys = {
       }),
    },
    { key = 'S', mods = mod.LEADER, action = wezterm.action({ EmitEvent = 'save_session' }) },
-   {
-      key = 's',
-      mods = mod.LEADER,
-      action = wezterm.action.QuickSelectArgs({
-         label = 'select sha',
-         patterns = {
-            ' [0-9a-f]{7,40} ',
-         },
-      }),
-   },
-   { key = 'T', mods = mod.LEADER, action = act.ActivateTabRelative(0) },
+   { key = 's', mods = mod.LEADER, action = act.SplitVertical },
+   { key = 'T', mods = mod.LEADER, action = act.ActivateTabRelative(-1) },
    { key = 't', mods = mod.LEADER, action = act.ActivateTabRelative(1) },
    {
       key = 'u',
@@ -131,7 +125,17 @@ local keys = {
          end),
       }),
    },
-   { key = 'V', mods = mod.LEADER, action = act.SplitHorizontal },
+   { key = 'v', mods = mod.LEADER, action = act.SplitHorizontal },
+   {
+      key = 'x',
+      mods = mod.LEADER,
+      action = wezterm.action.QuickSelectArgs({
+         label = 'select sha',
+         patterns = {
+            ' [0-9a-f]{7,40} ',
+         },
+      }),
+   },
    { key = 'z', mods = mod.LEADER, action = act.TogglePaneZoomState },
    { key = '{', mods = mod.LEADER, action = act.MoveTabRelative(-1) },
    { key = '}', mods = mod.LEADER, action = act.MoveTabRelative(1) },
@@ -139,10 +143,6 @@ local keys = {
    -- SUPER KEY
    { key = 'c', mods = mod.SUPER, action = act.CopyTo('Clipboard') },
    { key = 'f', mods = mod.SUPER, action = act.Search({ CaseInSensitiveString = '' }) },
-   { key = 'h', mods = mod.LEADER, action = act.ActivatePaneDirection('Left') },
-   { key = 'k', mods = mod.LEADER, action = act.ActivatePaneDirection('Up') },
-   { key = 'j', mods = mod.LEADER, action = act.ActivatePaneDirection('Down') },
-   { key = 'l', mods = mod.LEADER, action = act.ActivatePaneDirection('Right') },
    { key = 'v', mods = mod.SUPER, action = act.PasteFrom('Clipboard') },
    {
       key = '0',
